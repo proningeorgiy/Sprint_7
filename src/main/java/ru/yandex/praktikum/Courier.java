@@ -1,10 +1,6 @@
 package ru.yandex.praktikum;
 
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
-
-import static io.restassured.RestAssured.given;
 
 public class Courier {
     private String login;
@@ -23,7 +19,7 @@ public class Courier {
         this.firstName = "Vasja";
     }
 
-    public String randomLogin(String firstPartLogin){
+    public String randomLogin(String firstPartLogin) {
         return firstPartLogin + RandomStringUtils.randomAlphanumeric(6, 10);
     }
 
@@ -49,38 +45,5 @@ public class Courier {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public void showCreateCourierRequestData(){
-        System.out.println("Создание курьера");
-        System.out.println("Логин: " + this.login);
-        System.out.println("Пароль: " + this.password);
-        System.out.println("Имя: " + this.firstName);
-        System.out.println();
-    }
-
-    public void showCreateCourierResponseData(Response response, String showResponseData){
-        System.out.println("Код ответа: " + response.statusCode());
-        System.out.println("Сообщение в ответе для параметра \"" + showResponseData + "\": " + response.path(showResponseData).toString());
-        System.out.println();
-    }
-
-    public void showCreateCourierResponseData(Response response){
-        System.out.println("Код ответа: " + response.statusCode());
-        System.out.println("Сообщение в ответе " + response.body().asString());
-        System.out.println();
-    }
-
-    public Response createCourier(String connectString){
-        showCreateCourierRequestData();
-
-        Response createResponse;
-        createResponse = given()
-                .contentType(ContentType.JSON)
-                .body(this)
-                .when()
-                .post(connectString);
-
-        return createResponse;
     }
 }

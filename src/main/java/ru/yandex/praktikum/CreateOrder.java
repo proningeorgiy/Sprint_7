@@ -1,11 +1,6 @@
 package ru.yandex.praktikum;
 
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-
 import java.util.List;
-
-import static io.restassured.RestAssured.given;
 
 public class CreateOrder {
     private String firstName;
@@ -100,44 +95,5 @@ public class CreateOrder {
 
     public void setColorList(List<String> colorList) {
         this.colorList = colorList;
-    }
-
-    public void showCreateOrderRequestData(){
-        System.out.println("Создание заказа");
-        System.out.println("Имя: " + this.firstName);
-        System.out.println("Фамилия: " + this.lastName);
-        System.out.println("Адрес: " + this.address);
-        System.out.println("Метро: " + this.metroStation);
-        System.out.println("Телефон: " + this.phone);
-        System.out.println("Дней аренды: " + this.rentTime);
-        System.out.println("Дата доставки: " + this.deliveryDate);
-        System.out.println("Комментарий: " + this.comment);
-        System.out.println("Список цветов окраски: " + this.colorList);
-        System.out.println();
-    }
-
-    public void showCreateOrderResponseData(Response response, String showResponseData){
-        System.out.println("Код ответа: " + response.statusCode());
-        System.out.println("Сообщение в ответе для параметра \"" + showResponseData + "\": " + response.path(showResponseData).toString());
-        System.out.println();
-    }
-
-    public void showCreateOrderResponseData(Response response){
-        System.out.println("Код ответа: " + response.statusCode());
-        System.out.println("Сообщение в ответе " + response.body().asString());
-        System.out.println();
-    }
-
-    public Response createOrder(String connectString){
-        showCreateOrderRequestData();
-
-        Response createOrder;
-        createOrder = given()
-                .contentType(ContentType.JSON)
-                .body(this)
-                .when()
-                .post(connectString);
-
-        return createOrder;
     }
 }
